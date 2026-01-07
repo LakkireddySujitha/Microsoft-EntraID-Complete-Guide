@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Employee Portal</title>
+  <script src="https://alcdn.msauth.net/browser/2.28.0/js/msal-browser.min.js"></script>
+</head>
+<body>
+
+<h2>Employee Portal Login</h2>
+<button onclick="login()">Login</button>
+<p id="result"></p>
+
+<script>
+const msalConfig = {
+  auth: {
+    clientId: "fa67e404-bf6c-4fa7-86f4-d8ac6a892479",
+    authority: "https://login.microsoftonline.com/eb76ed21-bfa4-460a-bbd7-9683fd9c5af3",
+    redirectUri: "https://LakkireddySujitha.github.io/employee-portal/"
+  }
+};
+
+const msalInstance = new msal.PublicClientApplication(msalConfig);
+
+function login() {
+  msalInstance.loginPopup().then(response => {
+    document.getElementById("result").innerText =
+      "Welcome " + response.account.username;
+  });
+}
+</script>
+
+</body>
+</html>
