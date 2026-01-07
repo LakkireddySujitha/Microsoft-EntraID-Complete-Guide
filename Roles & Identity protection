@@ -1,0 +1,52 @@
+# Microsoft Entra ID - Roles
+
+## Entra ID Roles
+| Role | Purpose |
+|------|---------|
+| Global Administrator | Full directory access, connect on-prem to Azure |
+| User Administrator | Manage users and groups |
+| Application Administrator | Manage apps and service principals |
+| Other Roles | Helpdesk, Security Admin, etc. |
+
+## Azure RBAC Roles
+| Role | Purpose |
+|------|---------|
+| Owner | Full access to Azure resources |
+| Contributor | Create & manage resources |
+| Reader | View resources |
+
+## Scope
+- Management Group → Subscription → Resource Group → Resource
+
+### Key Difference
+- Entra ID roles = Identity management  
+- Azure RBAC = Resource management
+
+### Interview Line
+"Entra roles manage directory objects, Azure RBAC manages Azure resource access."
+
+
+# Microsoft Entra ID - Identity Protection (P2)
+
+## Purpose
+Detect and respond to risky users/sign-ins using ML & threat intelligence
+
+## Risk Type
+| Type | Meaning | Action |
+|------|---------|--------|
+| Sign-in Risk | Suspicious login attempt | MFA, Block |
+| User Risk | Compromised account probability | Force password reset |
+
+## Risk Detections
+- Impossible travel
+- Anonymous IP
+- Atypical sign-ins
+
+## Practical Flow
+1. User signs in
+2. Identity Protection evaluates risk
+3. Risk signals passed to Conditional Access
+4. Conditional Access enforces actions (MFA, password reset, block)
+
+### Interview One-liner
+"Identity Protection detects risky users/sign-ins and integrates with Conditional Access to automatically enforce security."
