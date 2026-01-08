@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Employee Portal</title>
+  <title>My Private SaaS App</title>
   <script src="https://alcdn.msauth.net/browser/2.28.0/js/msal-browser.min.js"></script>
 </head>
 <body>
-
-<h2>Employee Portal Login</h2>
-<button onclick="login()">Login</button>
-<p id="result"></p>
+<h3 id="msg">Loading...</h3>
 
 <script>
-// Dynamically set redirectUri based on environment
-const redirectUri = window.location.hostname === "localhost"
+
+ const redirectUri = window.location.hostname === "localhost"
   ? "http://localhost:3000"
   : "https://LakkireddySujitha.github.io/employee-portal/";
 
@@ -21,26 +18,32 @@ const msalConfig = {
   auth: {
     clientId: "fa67e404-bf6c-4fa7-86f4-d8ac6a892479",
     authority: "https://login.microsoftonline.com/eb76ed21-bfa4-460a-bbd7-9683fd9c5af3",
-    redirectUri: redirectUri
+    redirectUri: "http://localhost:3000"
   }
 };
 
-// Create MSAL instance
 const msalInstance = new msal.PublicClientApplication(msalConfig);
 
-// Login function
-function login() {
-  msalInstance.loginPopup().then(response => {
-    // Display username on successful login
-    document.getElementById("result").innerText =
-      "Welcome " + response.account.username;
-  }).catch(error => {
-    console.error(error);
-    document.getElementById("result").innerText = "Login failed: " + error.message;
-  });
-}
-</script>
+(async () => {
+  const response = await msalInstance.handleRedirectPromise();
+  const account = response?.account || msalInstance.getAllAccounts()[0];
 
+  if (!account) {
+    msalInstance.loginRedirect({ scopes: ["openid", "profile"] });
+    return;
+  }
+
+  document.getElementById("msg").innerText =
+    `Welcome ${account.username}`;
+})();
+</script>
 </body>
 </html>
+
+
+
+
+
+
+
 
